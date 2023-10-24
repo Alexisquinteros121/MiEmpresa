@@ -1,0 +1,62 @@
+{% extends 'personas/base.html' %}
+
+  {% block title %}
+    Listado de Personas
+  {% endblock title %}
+    
+  {% block content %}
+      <a class="nav-link" href="{% url 'nueva' %}">Nueva Persona</a>
+      <a class="nav-link" href="{% url 'email_comprobante' %}">Enviar Email</a>
+      
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Dni</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Vive</th>
+          <th scope="col">Foto</th>
+          <th scope="col">Acciones</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+      {% for per in personas %}
+        <tr>
+          <th scope="row">{{per.dni}}</th>
+          <td>{{per.apellido}}</td>
+          <td>{{per.nombre}}</td>
+          <td>{% if per.vive %} "SI" {% else %}"NO" {%endif%}</td>
+            
+          <td VALIGN="middle">
+            {% if per.foto %}
+            <div class="row-picture">
+           
+            <img class="circle" src="{{ per.foto.url }}" alt="{{ per.nombre }}"
+            width="80" height="80">
+            <br>
+            </div>
+            {% endif %}
+            </td>
+          <td><form method="POST":>
+            {% csrf_token %}
+    
+            {{formPersona.as_table}}
+            <a class="nav-link" href="{% url 'editar' %}">Editar</a>
+            
+        </form>
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+  
+          {{formPersona.as_table}}
+          <button type="submit">Eliminar</button>
+      </form> 
+      </td>
+          
+        </tr>
+      {% endfor %}
+        
+        
+      </tbody>
+    </table>
+  {% endblock %}

@@ -1,0 +1,17 @@
+<body>
+    <h2>Listado de Personas</h2>
+    <table border="1">
+        <thead>
+            <th>nombre</th>
+            <th>apellido</th>
+        </thead>
+        <tbody>
+            {% for per in persona_listado %}
+            <tr>
+                <td>{{per.nombre}}</td>
+                <td>{{per.apellido}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
